@@ -15,7 +15,7 @@
     "nsgTemplateFileName" : "networksecuritygroup.json",
     "nsgTemplateParametersFileName": "nsg.parameters.json",
     "subnetTemplateFileName" : "subnet.json",
-    "subnetTemplateParametersFileName": "nsg.parameters.json",
+    "subnetTemplateParametersFileName": "subnet.parameters.json",
 
     "deployemntApiVersion" : "2016-09-01"
   },

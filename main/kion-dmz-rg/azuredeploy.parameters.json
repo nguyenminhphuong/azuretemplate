@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "_artifactsLocation" : {
-      "value": "https://github.com/nguyenminhphuong/azuretemplate/tree/master"
+      "value": "https://raw.githubusercontent.com/nguyenminhphuong/azuretemplate/master/"
     }
   }
 }
