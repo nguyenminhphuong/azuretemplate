@@ -8,14 +8,22 @@
   },
   "variables": {
     "sharedresourcesTemplateFolder": "shareresources",
-    "vnetTemplateFileName": "vnet.json",
-    "vnetTemplateParametersFileName": "sharedresources.parameters.json"
+    "paramtersTemplateFolder" : "main/kion-dmz-rg/parameters",
+
+    "vnetTemplateFileName": "virtualnetwork.json",
+    "vnetTemplateParametersFileName": "vnet.parameters.json",
+    "nsgTemplateFileName" : "networksecuritygroup.json",
+    "nsgTemplateParametersFileName": "nsg.parameters.json",
+    "subnetTemplateFileName" : "subnet.json",
+    "subnetTemplateParametersFileName": "nsg.parameters.json",
+
+    "deployemntApiVersion" : "2016-09-01"
   },
   "resources": [
     {
       "name": "dmzVnetTemplate",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2016-09-01",
+      "apiVersion": "[variables('deployemntApiVersion')]",
       "dependsOn": [],
       "properties": {
         "mode": "Incremental",
@@ -24,10 +32,47 @@
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('vnetTemplateFileName'))]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('vnetTemplateParametersFileName'))]",
           "contentVersion": "1.0.0.0"
         }
       }
-    }],
+    },
+    {
+      "name": "dmzNsgTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "[variables('deployemntApiVersion')]",
+      "properties": {
+        "mode" :"Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('nsgTemplateFileName'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('nsgTemplateParametersFileName'))]",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    },
+    {
+      "name": "dmzSubnetTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "[variables('deployemntApiVersion')]",
+      "dependsOn": [
+        "dmzNsgTemplate",
+        "dmzVnetTemplate"
+      ],
+      "properties": {
+        "mode" :"Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('subnetTemplateFileName'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('subnetTemplateParametersFileName'))]",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    }
+  ],
   "outputs": {}
 }

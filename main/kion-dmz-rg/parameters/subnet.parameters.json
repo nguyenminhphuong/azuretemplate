@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName" : {
+            "value": "[kion-test-vnet]"
+        },
+      "subnetlist" : {
+        "value": [
+            {
+                "name" : "public-dmz-subnet",
+                "addressPrefix" : "10.4.0.0/27",
+                "nsgName" : "public-dmz-nsg"
+            },
+            {
+                "name" : "transport-dmz-subnet",
+                "addressPrefix" : "10.4.0.32/28",
+                "nsgName" : "transport-dmz-nsg"
+            },
+            {
+                "name" : "genericoutbound-dmz-subnet",
+                "addressPrefix" : "10.4.0.48/28",
+                "nsgName" : "genericoutbound-dmz-nsg"
+            },
+            {
+                "name" : "waf-dmz-subnet",
+                "addressPrefix" : "10.4.0.64/29",
+                "nsgName" : ""
+            }
+        ]
+      }
+    }
+  }

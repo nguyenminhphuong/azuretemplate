@@ -10,6 +10,7 @@
     }
   },
   "variables": {
+  },
   "resources": [
     {
       "name": "[parameters('vnetName')]",
@@ -29,7 +30,8 @@
     }],
     "outputs": {
       "message": {
-        "value": "[concat('Vnet ', parameters('vnetName') ,' has been created')]"
+        "value": "[concat('--Vnet ', parameters('vnetName') ,' has been created--')]",
+        "type": "string"
       }
     }
 }

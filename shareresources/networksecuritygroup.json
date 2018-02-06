@@ -1,0 +1,31 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "nsgName" : {
+            "type": "array"
+        }
+    },
+    "variables": {
+        "apiVersion" : "2017-11-01"
+    },
+    "resources": [
+        {
+            "copy": {
+                "count" : "[length(parameters('nsgName'))]",
+                "mode": "Serial",
+                "name": "nsgloop"
+            },
+            "name": "[parameters('nsgName')[copyIndex()]]",
+            "apiVersion": "[variables('apiVersion')]",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "location" : "[resourceGroup().location]"
+        }
+    ],
+    "outputs": {
+        "nsgName" : {
+            "type": "string",
+            "value": "[parameters('nsgName')]"
+        }
+    }
+}
