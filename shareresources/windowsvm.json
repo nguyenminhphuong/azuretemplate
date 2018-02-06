@@ -41,7 +41,7 @@
     },
     "resources": [
         {
-            "name": "[concat(parameters('vmPrefixName'), copyIndex(), '-NIC')]",
+            "name": "[concat(parameters('vmPrefixName'), add(copyIndex(), 1), '-NIC')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "[variables('apiVersion')]",
             "location" : "[resourceGroup().location]",
@@ -92,14 +92,14 @@
                   }
                 },
                 "osProfile" :{
-                    "computerName": "[concat(parameters('vmPrefixName'), copyIndex())]",
+                    "computerName": "[concat(parameters('vmPrefixName'), add(copyIndex(), 1))]",
                     "adminUsername": "[parameters('vmAdmin')]",
                     "adminPassword": "[parameters('vmPassword')]"
                 },
                 "networkProfile" :{
                     "networkInterfaces":[
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vmPrefixName'), copyIndex(), '-NIC'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vmPrefixName'), add(copyIndex(), 1), '-NIC'))]"
                         }
                     ]
                 }
