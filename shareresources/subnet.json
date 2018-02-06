@@ -10,7 +10,6 @@
     }
   },
   "variables": {
-    "emptyNsg" : null
   },
   "resources": [
     {
@@ -26,7 +25,7 @@
       "properties": {
         "addressPrefix": "[parameters('subnetlist')[copyIndex()].addressPrefix]",
         "networkSecurityGroup": {
-          "id": "[if(equals(parameters('subnetlist')[copyIndex()].nsgName, variables('emptyNsg') ),  variables('emptyNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName))]"
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName)]"
         }
       }
     }
