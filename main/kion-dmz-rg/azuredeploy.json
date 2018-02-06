@@ -116,7 +116,11 @@
       }
     },
     {
-      "name": "[concat(variables('webappPrefixName'), '/','webappcustomscript')]",
+      "copy": {
+        "count" : 2,
+        "name": "webappcustomscriptloop"
+      },
+      "name": "[concat(variables('webappPrefixName'), add(copyIndex(), 1), '/','webappcustomscript')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "location": "[resourceGroup().location]",
       "apiVersion": "[variables('customScriptApiVersion')]",
