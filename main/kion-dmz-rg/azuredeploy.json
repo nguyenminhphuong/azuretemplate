@@ -88,13 +88,24 @@
           "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('windowsVMTemplateFileName'))]",
           "contentVersion": "1.0.0.0"
         },
-        "parametersLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('webappVMTemplateParametersFileName'))]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters" : {
+        "parameters" :{
+          "vmPrefixName" : {
+            "value": "kion-webapp"
+          },
+          "numberOfInstances" : {
+              "value": 2
+          },
           "subnetRef" : {
-            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'kion-test-vnet', 'public-dmz-subnet')]"
+              "value": "[concat(reference('dmzVnetTemplate').outputs.resourceId.value, '/subnets/', 'public-dmz-subnet')]"
+          },
+          "vmAdmin" : {
+              "value": "phuong"
+          },
+          "vmPassword" : {
+              "value": "P@ssw0rd@123"
+          },
+          "windowsOSVersion" :{
+              "value": "2012-R2-Datacenter"
           }
         }
       }
