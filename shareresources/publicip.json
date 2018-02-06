@@ -11,7 +11,7 @@
         "allowedValues": [
           "Dynamic",
           "Static"
-        ],
+        ]
       },
       "dnsLabelPrefix": {
         "type": "string"
