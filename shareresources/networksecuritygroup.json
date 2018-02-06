@@ -23,9 +23,6 @@
         }
     ],
     "outputs": {
-        "nsgName" : {
-            "type": "string",
-            "value": "[parameters('nsgName')]"
-        }
+     
     }
 }
