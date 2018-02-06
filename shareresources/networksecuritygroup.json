@@ -26,7 +26,7 @@
                         "name": "securityRules",
                         "count": "[length(parameters('nsglist')[copyIndex()].securityRules)]",
                         "input": {
-                            "name": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].nsgName]",
+                            "name": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].name]",
                             "properties": {
                                 "description": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].description]",
                                 "protocol": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].protocol]",
