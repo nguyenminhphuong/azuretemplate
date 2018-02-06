@@ -8,9 +8,6 @@
         "numberOfInstances" : {
             "value": 2
         },
-        "subnetRef" : {
-            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'kion-test-vnet', 'public-dmz-subnet')]"
-        },
         "vmAdmin" : {
             "value": "phuong"
         },

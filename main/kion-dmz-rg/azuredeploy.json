@@ -91,6 +91,11 @@
         "parametersLink": {
           "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('webappVMTemplateParametersFileName'))]",
           "contentVersion": "1.0.0.0"
+        },
+        "parameters" : {
+          "subnetRef" : {
+            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'kion-test-vnet', 'public-dmz-subnet')]"
+          }
         }
       }
     }
