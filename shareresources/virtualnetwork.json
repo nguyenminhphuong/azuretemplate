@@ -29,9 +29,9 @@
       }
     }],
     "outputs": {
-      "message": {
-        "value": "[concat('--Vnet ', parameters('vnetName') ,' has been created--')]",
-        "type": "string"
+      "resourceId" : {
+        "type": "string",
+        "value": "[resourceId('Microsoft.NetWork/virtualNetworks', parameters('vnetName'))]"
       }
     }
 }

@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmPrefixName" : {
+            "value": "kion-webapp"
+        },
+        "numberOfInstance" : {
+            "value": 2
+        },
+        "subnetRef" : {
+            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'kion-test-vnet', 'public-dmz-subnet')]"
+        }
+    }
+  }

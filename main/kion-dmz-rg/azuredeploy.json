@@ -16,6 +16,8 @@
     "nsgTemplateParametersFileName": "nsg.parameters.json",
     "subnetTemplateFileName" : "subnet.json",
     "subnetTemplateParametersFileName": "subnet.parameters.json",
+    "windowsVMTemplateFileName" : "windowsvm.json",
+    "windowsVMTemplateParametersFileName": "windowsvm.parameters.json",
 
     "deployemntApiVersion" : "2016-09-01"
   },
@@ -69,6 +71,25 @@
         },
         "parametersLink": {
           "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('subnetTemplateParametersFileName'))]",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    },
+    {
+      "name": "webappVMTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "[variables('deployemntApiVersion')]",
+      "dependsOn": [
+        "dmzSubnetTemplate"
+      ],
+      "properties": {
+        "mode" :"Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('windowsVMTemplateFileName'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('windowsVMTemplateParametersFileName'))]",
           "contentVersion": "1.0.0.0"
         }
       }
