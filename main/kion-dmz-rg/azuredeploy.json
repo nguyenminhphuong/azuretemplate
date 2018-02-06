@@ -4,12 +4,6 @@
   "parameters": {
     "_artifactsLocation": {
       "type": "string"
-    },
-    "_artifactsLocationSasToken": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Auto-generated token to access _artifactsLocation"
-      }
     }
   },
   "variables": {
@@ -27,6 +21,8 @@
     "webappVMTemplateParametersFileName": "webappvm.parameters.json",
 
     "webappCustomScriptFileName" : "webappcustomscript.ps1",
+    "webappPrefixName" : "kion-webapp",
+
     "deployemntApiVersion" : "2016-09-01",
     "customScriptApiVersion" : "2016-03-30"
   },
@@ -39,11 +35,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('vnetTemplateFileName'), parameters('_artifactsLocationSasToken') )]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('vnetTemplateFileName') )]",
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('vnetTemplateParametersFileName'), parameters('_artifactsLocationSasToken'))]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('vnetTemplateParametersFileName'))]",
           "contentVersion": "1.0.0.0"
         }
       }
@@ -99,7 +95,7 @@
         },
         "parameters" :{
           "vmPrefixName" : {
-            "value": "kion-webapp"
+            "value": "[variables('webappPrefixName')]"
           },
           "numberOfInstances" : {
               "value": 2
@@ -120,7 +116,7 @@
       }
     },
     {
-      "name": "[concat(reference('webappVMTemplate').outputs.vmPrefixName.value, '/','webappcustomscript')]",
+      "name": "[concat(variables('webappPrefixName'), '/','webappcustomscript')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "location": "[resourceGroup().location]",
       "apiVersion": "[variables('customScriptApiVersion')]",
@@ -134,7 +130,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(parameters('_artifactsLocation'), '/', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'), parameters('_artifactsLocationSasToken'))]"
+            "[concat(parameters('_artifactsLocation'), '/', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'))]"
           ],
           "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'))]"
         }
