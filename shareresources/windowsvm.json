@@ -110,7 +110,10 @@
         }
     ],
     "outputs": {
-
+        "vmPrefixName" : {
+            "type": "string",
+            "value": "[parameters('vmPrefixName')]"
+          }
     }
         
 }

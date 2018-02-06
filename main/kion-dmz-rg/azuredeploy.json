@@ -4,10 +4,17 @@
   "parameters": {
     "_artifactsLocation": {
       "type": "string"
+    },
+    "_artifactsLocationSasToken": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Auto-generated token to access _artifactsLocation"
+      }
     }
   },
   "variables": {
     "sharedresourcesTemplateFolder": "shareresources",
+    "customScriptFolder": "customscripts",
     "paramtersTemplateFolder" : "main/kion-dmz-rg/parameters",
 
     "vnetTemplateFileName": "virtualnetwork.json",
@@ -19,7 +26,9 @@
     "windowsVMTemplateFileName" : "windowsvm.json",
     "webappVMTemplateParametersFileName": "webappvm.parameters.json",
 
-    "deployemntApiVersion" : "2016-09-01"
+    "webappCustomScriptFileName" : "webappcustomscript.ps1",
+    "deployemntApiVersion" : "2016-09-01",
+    "customScriptApiVersion" : "2016-03-30"
   },
   "resources": [
     {
@@ -30,11 +39,11 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('vnetTemplateFileName'))]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('vnetTemplateFileName'), parameters('_artifactsLocationSasToken') )]",
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('vnetTemplateParametersFileName'))]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('vnetTemplateParametersFileName'), parameters('_artifactsLocationSasToken'))]",
           "contentVersion": "1.0.0.0"
         }
       }
@@ -109,7 +118,30 @@
           }
         }
       }
+    },
+    {
+      "name": "[concat(reference('webappVMTemplate').outputs.vmPrefixName.value, '/','webappcustomscript')]",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('customScriptApiVersion')]",
+      "dependsOn": [ 
+        "webappVMTemplate"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.7",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "[concat(parameters('_artifactsLocation'), '/', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'), parameters('_artifactsLocationSasToken'))]"
+          ],
+          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'))]"
+        }
+      }
     }
   ],
-  "outputs": {}
+  "outputs": {
+    
+  }
 }
