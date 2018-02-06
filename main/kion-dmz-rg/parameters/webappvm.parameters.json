@@ -16,6 +16,9 @@
         },
         "vmPassword" : {
             "value": "P@ssw0rd@123"
+        },
+        "windowsOSVersion" :{
+            "value": "2012-R2-Datacenter"
         }
     }
   }
