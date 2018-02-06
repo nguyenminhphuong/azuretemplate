@@ -2,8 +2,8 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "nsgName" : {
-            "type": "array"
+        "nsglist" : {
+            "type": "object"
         }
     },
     "variables": {
@@ -12,14 +12,36 @@
     "resources": [
         {
             "copy": {
-                "count" : "[length(parameters('nsgName'))]",
+                "count" : "[length(parameters('nsglist'))]",
                 "mode": "Serial",
                 "name": "nsgloop"
             },
-            "name": "[parameters('nsgName')[copyIndex()]]",
+            "name": "[parameters('nsglist')[copyIndex()].name]",
             "apiVersion": "[variables('apiVersion')]",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "location" : "[resourceGroup().location]"
+            "location" : "[resourceGroup().location]",
+            "properties":{
+                "copy" : [
+                    {
+                        "name": "securityRules",
+                        "count": "[length(parameters('nsglist')[copyIndex()].securityRules)]",
+                        "input": {
+                            "name": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].name]",
+                            "properties": {
+                                "description": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].description]",
+                                "protocol": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].protocol]",
+                                "sourcePortRange": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].sourcePortRange]",
+                                "destinationPortRange": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].destinationPortRange]",
+                                "sourceAddressPrefix": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].sourceAddressPrefix]",
+                                "destinationAddressPrefix": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].destinationAddressPrefix]",
+                                "access": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].access]",
+                                "priority": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].priority]",
+                                "direction": "[parameters('nsglist')[copyIndex()].securityRules[copyIndex('securityRules')].direction]"
+                            }
+                        }
+                    }
+                ]
+            }
         }
     ],
     "outputs": {
