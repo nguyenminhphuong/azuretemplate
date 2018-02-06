@@ -21,11 +21,6 @@
                 "name" : "genericoutbound-dmz-subnet",
                 "addressPrefix" : "10.4.0.48/28",
                 "nsgName" : "genericoutbound-dmz-nsg"
-            },
-            {
-                "name" : "waf-dmz-subnet",
-                "addressPrefix" : "10.4.0.64/29",
-                "nsgName" : ""
             }
         ]
       }

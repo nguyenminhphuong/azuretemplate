@@ -23,7 +23,7 @@
       "properties": {
         "addressPrefix": "[parameters('subnetlist')[copyIndex()].addressPrefix]",
         "networkSecurityGroup": {
-          "id": "[if(equals(parameters('subnetlist')[copyIndex()].nsgName, ''), '', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName))]"
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName)]"
         }
       }
     }
