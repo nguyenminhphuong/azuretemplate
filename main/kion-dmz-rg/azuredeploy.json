@@ -17,7 +17,7 @@
     "subnetTemplateFileName" : "subnet.json",
     "subnetTemplateParametersFileName": "subnet.parameters.json",
     "windowsVMTemplateFileName" : "windowsvm.json",
-    "windowsVMTemplateParametersFileName": "windowsvm.parameters.json",
+    "webappVMTemplateParametersFileName": "webappvm.parameters.json",
 
     "deployemntApiVersion" : "2016-09-01"
   },
@@ -89,7 +89,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parametersLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('windowsVMTemplateParametersFileName'))]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/',variables('paramtersTemplateFolder'), '/', variables('webappVMTemplateParametersFileName'))]",
           "contentVersion": "1.0.0.0"
         }
       }

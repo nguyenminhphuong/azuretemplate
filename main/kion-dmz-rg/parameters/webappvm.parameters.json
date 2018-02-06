@@ -5,11 +5,17 @@
         "vmPrefixName" : {
             "value": "kion-webapp"
         },
-        "numberOfInstance" : {
+        "numberOfInstances" : {
             "value": 2
         },
         "subnetRef" : {
             "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'kion-test-vnet', 'public-dmz-subnet')]"
+        },
+        "vmAdmin" : {
+            "value": "phuong"
+        },
+        "vmPassword" : {
+            "value": "P@ssw0rd@123"
         }
     }
   }
