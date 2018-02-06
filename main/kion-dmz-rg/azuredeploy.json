@@ -96,7 +96,7 @@
               "value": 2
           },
           "subnetRef" : {
-              "value": "[concat(reference('dmzVnetTemplate').outputs.resourceId.value, '/subnets/', 'public-dmz-subnet')]"
+              "value": "[concat(reference('dmzVnetTemplate').outputs.resourceId.value, '/subnets/', 'dmz-public-subnet')]"
           },
           "vmAdmin" : {
               "value": "phuong"

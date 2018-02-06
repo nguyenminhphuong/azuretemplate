@@ -8,19 +8,24 @@
       "subnetlist" : {
         "value": [
             {
-                "name" : "public-dmz-subnet",
+                "name" : "dmz-public-subnet",
                 "addressPrefix" : "10.4.0.0/27",
-                "nsgName" : "public-dmz-nsg"
+                "nsgName" : "dmz-public-nsg"
             },
             {
-                "name" : "transport-dmz-subnet",
+                "name" : "dmz-transport-subnet",
                 "addressPrefix" : "10.4.0.32/28",
-                "nsgName" : "transport-dmz-nsg"
+                "nsgName" : "dmz-transport-nsg"
             },
             {
-                "name" : "genericoutbound-dmz-subnet",
+                "name" : "dmz-genericoutbound-subnet",
                 "addressPrefix" : "10.4.0.48/28",
-                "nsgName" : "genericoutbound-dmz-nsg"
+                "nsgName" : "dmz-genericoutbound-nsg"
+            },
+            {
+                "name" : "dmz-waf-subnet",
+                "addressPrefix" : "10.4.0.64/28",
+                "nsgName" : "json('null')"
             }
         ]
       }

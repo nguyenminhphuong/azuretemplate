@@ -5,7 +5,7 @@
         "nsglist" : {
           "value": [
             {
-              "nsgName" : "transport-dmz-nsg",
+              "nsgName" : "dmz-transport-nsg",
               "securityRules" : [
                 {
                     "name": "AllowRDPInBound",
@@ -34,7 +34,7 @@
               ]
             },
             {
-              "nsgName" : "public-dmz-nsg",
+              "nsgName" : "dmz-public-nsg",
               "securityRules" : [
                 {
                     "name": "AllowRDPInBound",
@@ -63,7 +63,7 @@
               ]
             },
             {
-              "nsgName" : "genericoutbound-dmz-nsg",
+              "nsgName" : "dmz-genericoutbound-nsg",
               "securityRules" : [
                 {
                     "name": "AllowSSHInBound",
