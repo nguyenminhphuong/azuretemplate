@@ -24,8 +24,7 @@
             },
             {
                 "name" : "waf-dmz-subnet",
-                "addressPrefix" : "10.4.0.64/29",
-                "nsgName" : null
+                "addressPrefix" : "10.4.0.64/29"
             }
         ]
       }
