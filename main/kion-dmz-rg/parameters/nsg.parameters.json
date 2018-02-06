@@ -32,6 +32,52 @@
                     "protocol": "*"
                   }
               ]
+            },
+            {
+              "nsgName" : "public-dmz-nsg",
+              "securityRules" : [
+                {
+                    "name": "AllowRDPInBound",
+                    "description": "allow RDP connections",
+                    "direction": "Inbound",
+                    "priority": 100,
+                    "sourceAddressPrefix": "10.4.0.32/28",
+                    "destinationAddressPrefix": "10.4.0.0/27",
+                    "sourcePortRange": "*",
+                    "destinationPortRange": "3389",
+                    "access": "Allow",
+                    "protocol": "Tcp"
+                },
+                {
+                  "name": "DenyInternetOutBound",
+                  "description": "deny internet outbund",
+                  "direction": "Outbound",
+                  "priority": 200,
+                  "sourceAddressPrefix": "*",
+                  "destinationAddressPrefix": "*",
+                  "sourcePortRange": "*",
+                  "destinationPortRange": "*",
+                  "access": "Deny",
+                  "protocol": "*"
+                }
+              ]
+            },
+            {
+              "nsgName" : "genericoutbound-dmz-nsg",
+              "securityRules" : [
+                {
+                    "name": "AllowSSHInBound",
+                    "description": "",
+                    "direction": "Inbound",
+                    "priority": 100,
+                    "sourceAddressPrefix": "10.4.0.32/28",
+                    "destinationAddressPrefix": "10.4.0.48/28",
+                    "sourcePortRange": "*",
+                    "destinationPortRange": "22",
+                    "access": "Allow",
+                    "protocol": "Tcp"
+                }
+              ]
             }
           ]
         }

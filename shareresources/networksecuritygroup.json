@@ -16,7 +16,7 @@
                 "mode": "Serial",
                 "name": "nsgloop"
             },
-            "name": "[parameters('nsglist')[copyIndex()].name]",
+            "name": "[parameters('nsglist')[copyIndex()].nsgName]",
             "apiVersion": "[variables('apiVersion')]",
             "type": "Microsoft.Network/networkSecurityGroups",
             "location" : "[resourceGroup().location]",
