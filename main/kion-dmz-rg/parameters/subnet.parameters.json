@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vnetName" : {
-            "value": "[kion-test-vnet]"
+            "value": "kion-test-vnet"
         },
       "subnetlist" : {
         "value": [

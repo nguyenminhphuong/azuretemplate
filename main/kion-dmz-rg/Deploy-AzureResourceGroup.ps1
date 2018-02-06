@@ -3,7 +3,7 @@ $location = "eastus"
 $templateFile = "azuredeploy.json"
 $templateParameterFile = "azuredeploy.parameters.json"
 
-Login-AzureRmAccount 
+#Login-AzureRmAccount 
 
 New-AzureRmResourceGroup -Name $resourceGroup -Location $location
 
