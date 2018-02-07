@@ -154,7 +154,7 @@
    },
    "dmzMsg3" : {
     "type": "object",
-    "value": "[reference('dmzSubnetTemplate').outputs.jsobEval.value]"
+    "value": "[reference('dmzSubnetTemplate').outputs.jsonEval.value]"
  }
   }
 }

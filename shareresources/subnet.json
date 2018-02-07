@@ -40,7 +40,7 @@
       "type": "string",
       "value": "[parameters('subnetlist')[1].nsgName]"
     },
-    "jsobEval" : {
+    "jsonEval" : {
       "type": "object",
       "value": "[json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', 'dmz-public-subnet'), '}', variables('singleQuote') ))]"
     }
