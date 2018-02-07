@@ -145,7 +145,7 @@
   ],
   "outputs": {
     "dmzMsg1" : {
-       "type": "object",
+       "type": "int",
        "value": "[reference('dmzSubnetTemplate').outputs.testOutput.value]"
     },
     "dmzMsg2" : {

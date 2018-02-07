@@ -33,8 +33,8 @@
   ],
   "outputs": {
     "testOutput" : {
-      "type": "object",
-      "value": "[length(parameters('subnetlist')) ]"
+      "type": "int",
+      "value": "[length(parameters('subnetlist'))]"
     },
     "firstNsg" : {
       "type": "string",
