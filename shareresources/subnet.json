@@ -11,7 +11,6 @@
   },
   "variables": {
     "singleQuote": "'"
-
   },
   "resources": [
     {
@@ -43,7 +42,7 @@
     },
     "jsobEval" : {
       "type": "object",
-      "value": "[json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', 'dmz-public-subnet', '}', variables('singleQuote') )))]"
+      "value": "[json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', 'dmz-public-subnet'), '}', variables('singleQuote') ))]"
     }
   }
 }
