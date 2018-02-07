@@ -10,7 +10,8 @@
     }
   },
   "variables": {
-    "singleQuote": "'"
+    "singleQuote": "'",
+    "nsg" : "[if(equals(parameters('subnetlist')[copyIndex()].nsgName, json('null')), json('null'),  json(concat(variables('singleQuote'),'{\"id\":', '\"',resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName), '\"', '}', variables('singleQuote') )) ) ]"
   },
   "resources": [
     {
@@ -25,24 +26,18 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "addressPrefix": "[parameters('subnetlist')[copyIndex()].addressPrefix]",
-        "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName)]"
-        } 
+        "networkSecurityGroup": "[variables('nsg')]"
       }
     }
   ],
   "outputs": {
-    "testOutput1" : {
-      "type": "int",
-      "value": "[length(parameters('subnetlist'))]"
-    },
     "firstNsg" : {
       "type": "string",
-      "value": "[parameters('subnetlist')[1].nsgName]"
+      "value": "[parameters('subnetlist')[0].nsgName]"
     },
     "jsonEval" : {
       "type": "string",
-      "value": "[json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', 'dmz-public-subnet'), '}', variables('singleQuote') ))]"
+      "value": "[if(equals(parameters('subnetlist')[0].nsgName, json('null')), json('null'),  json(concat(variables('singleQuote'),'{\"id\":', '\"',resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[0].nsgName), '\"', '}', variables('singleQuote') )) ) ]"
     }
   }
 }
