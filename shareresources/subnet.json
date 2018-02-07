@@ -41,7 +41,7 @@
       "value": "[parameters('subnetlist')[1].nsgName]"
     },
     "jsonEval" : {
-      "type": "object",
+      "type": "string",
       "value": "[json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', 'dmz-public-subnet'), '}', variables('singleQuote') ))]"
     }
   }
