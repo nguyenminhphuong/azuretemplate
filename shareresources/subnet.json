@@ -25,7 +25,7 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "addressPrefix": "[parameters('subnetlist')[copyIndex()].addressPrefix]",
-        "networkSecurityGroup": "[json('null')]"
+        "networkSecurityGroup": "[json('{\"id\":\"/subscriptions/7bd18111-7060-49fc-a887-52a0b6f61cee/resourceGroups/KionTest-RG/providers/Microsoft.Network/networkSecurityGroups/dmz-public-nsg\"}')]"
       }
     }
   ],
