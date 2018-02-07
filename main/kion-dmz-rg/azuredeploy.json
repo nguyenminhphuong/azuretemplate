@@ -22,6 +22,8 @@
 
     "webappCustomScriptFileName" : "webappcustomscript.ps1",
     "webappPrefixName" : "kion-webapp",
+    "vmUsername" : "phuong",
+    "vmPassword" : "P@ssw0rd@123",
 
     "deployemntApiVersion" : "2016-09-01",
     "customScriptApiVersion" : "2016-03-30"
@@ -104,10 +106,10 @@
               "value": "[concat(reference('dmzVnetTemplate').outputs.resourceId.value, '/subnets/', 'dmz-public-subnet')]"
           },
           "vmAdmin" : {
-              "value": "phuong"
+              "value": "[variables('vmUsername')]"
           },
           "vmPassword" : {
-              "value": "P@ssw0rd@123"
+              "value": "[variables('vmPassword')]"
           },
           "windowsOSVersion" :{
               "value": "2012-R2-Datacenter"
@@ -136,7 +138,7 @@
           "fileUris": [
             "[concat(parameters('_artifactsLocation'), '/', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'))]"
           ],
-          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'))]"
+          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('webappCustomScriptFileName'))]"
         }
       }
     }

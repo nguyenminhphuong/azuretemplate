@@ -47,7 +47,19 @@
                     "destinationPortRange": "3389",
                     "access": "Allow",
                     "protocol": "Tcp"
-                }
+                },
+                  {
+                    "name": "DenyInternetOutBound",
+                    "description": "deny internet outbund",
+                    "direction": "Outbound",
+                    "priority": 200,
+                    "sourceAddressPrefix": "*",
+                    "destinationAddressPrefix": "Internet",
+                    "sourcePortRange": "*",
+                    "destinationPortRange": "*",
+                    "access": "Deny",
+                    "protocol": "*"
+                  }
               ]
             },
             {
