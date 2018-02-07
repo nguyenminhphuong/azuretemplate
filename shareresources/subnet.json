@@ -35,15 +35,15 @@
   "outputs": {
     "testOutput" : {
       "type": "object",
-      "value": "[if(equals(parameters('subnetlist')[0].nsgName, json('null')), json('null'),  json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[0].nsgName), '}', variables('singleQuote') )) ) ]"
+      "value": "[if(equals(parameters('subnetlist')[1].nsgName, json('null')), json('null'),  json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[1].nsgName), '}', variables('singleQuote') )) ) ]"
     },
     "firstNsg" : {
       "type": "string",
-      "value": "[parameters('subnetlist')[0].nsgName]"
+      "value": "[parameters('subnetlist')[1].nsgName]"
     },
     "jsobEval" : {
       "type": "object",
-      "value": "[json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[0].nsgName), '}', variables('singleQuote') ))]"
+      "value": "[json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', 'dmz-public-subnet', '}', variables('singleQuote') )))]"
     }
   }
 }
