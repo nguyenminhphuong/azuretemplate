@@ -25,18 +25,10 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "addressPrefix": "[parameters('subnetlist')[copyIndex()].addressPrefix]",
-        "networkSecurityGroup": "[if(equals(parameters('subnetlist')[copyIndex()].nsgName, json('null')), json('null'), json(concat('{\"id\":', '\"', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName), '\"','}' )))]"
+        "networkSecurityGroup": "[if(empty(parameters('subnetlist')[copyIndex()].nsgName), json('null'), json(concat('{\"id\":', '\"', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName), '\"','}' )))]"
       }
     }
   ],
   "outputs": {
-    "firstNsg" : {
-      "type": "string",
-      "value": "[parameters('subnetlist')[0].nsgName]"
-    },
-    "jsonEval" : {
-      "type": "string",
-      "value": "[if(equals(parameters('subnetlist')[0].nsgName, json('null')), json('null'),  json(concat(variables('singleQuote'),'{\"id\":', '\"',resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[0].nsgName), '\"', '}', variables('singleQuote') )) ) ]"
-    }
   }
 }

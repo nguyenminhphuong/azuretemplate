@@ -144,17 +144,5 @@
     }
   ],
   "outputs": {
-    "dmzMsg1" : {
-       "type": "int",
-       "value": "[reference('dmzSubnetTemplate').outputs.testOutput1.value]"
-    },
-    "dmzMsg2" : {
-      "type": "string",
-      "value": "[reference('dmzSubnetTemplate').outputs.firstNsg.value]"
-   },
-   "dmzMsg3" : {
-    "type": "object",
-    "value": "[reference('dmzSubnetTemplate').outputs.jsonEval.value]"
- }
   }
 }
