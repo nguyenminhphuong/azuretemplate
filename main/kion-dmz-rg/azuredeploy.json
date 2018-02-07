@@ -144,6 +144,17 @@
     }
   ],
   "outputs": {
-    
+    "dmzMsg1" : {
+       "type": "object",
+       "value": "[reference('dmzSubnetTemplate').outputs.testOutput.value]"
+    },
+    "dmzMsg2" : {
+      "type": "string",
+      "value": "[reference('dmzSubnetTemplate').outputs.firstNsg.value]"
+   },
+   "dmzMsg3" : {
+    "type": "object",
+    "value": "[reference('dmzSubnetTemplate').outputs.jsobEval.value]"
+ }
   }
 }

@@ -11,6 +11,7 @@
   },
   "variables": {
     "singleQuote": "'"
+    
   },
   "resources": [
     {
@@ -27,7 +28,7 @@
         "addressPrefix": "[parameters('subnetlist')[copyIndex()].addressPrefix]",
         "networkSecurityGroup": {
           "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName)]"
-        }
+        } 
       }
     }
   ],
