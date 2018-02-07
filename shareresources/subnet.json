@@ -32,7 +32,7 @@
     }
   ],
   "outputs": {
-    "testOutput" : {
+    "testOutput1" : {
       "type": "int",
       "value": "[length(parameters('subnetlist'))]"
     },
