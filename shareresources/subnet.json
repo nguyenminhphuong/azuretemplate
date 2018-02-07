@@ -9,6 +9,9 @@
       "type": "array"
     }
   },
+  "variables": {
+    
+  },
   "resources": [
     {
       "copy": {
@@ -22,9 +25,7 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "addressPrefix": "[parameters('subnetlist')[copyIndex()].addressPrefix]",
-        "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName)]"
-        }
+        "networkSecurityGroup": "[if(equals(parameters('subnetlist')[copyIndex()].nsgName, json('null')), json('null'),  json(concat('{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[copyIndex()].nsgName), '}' )) ) ]"
       }
     }
   ],
