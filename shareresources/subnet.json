@@ -35,7 +35,7 @@
   "outputs": {
     "testOutput" : {
       "type": "object",
-      "value": "[if(equals(parameters('subnetlist')[1].nsgName, json('null')), json('null'),  json(concat(variables('singleQuote'),'{\"id\":', resourceId('Microsoft.Network/networkSecurityGroups', parameters('subnetlist')[1].nsgName), '}', variables('singleQuote') )) ) ]"
+      "value": "[length(parameters('subnetlist')) ]"
     },
     "firstNsg" : {
       "type": "string",
