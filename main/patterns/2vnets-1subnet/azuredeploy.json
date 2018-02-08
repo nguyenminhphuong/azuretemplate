@@ -38,8 +38,12 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters":{
-          "vnetName" :"[concat(parameters('vnetName'), add(copyIndex(), 1))]",
-          "vnetPrefix" : "[variables('vnetAddressSpace')[copyIndex()]]"
+          "vnetName" : {  
+            "value" : "[concat(parameters('vnetName'), add(copyIndex(), 1))]" 
+          },
+          "vnetPrefix" : { 
+            "value" : "[variables('vnetAddressSpace')[copyIndex()]]" 
+          }
         }
       }
     },

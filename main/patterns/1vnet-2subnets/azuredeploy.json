@@ -40,8 +40,12 @@
             "contentVersion": "1.0.0.0"
           },
           "parameters":{
-            "vnetName" :"[parameters('vnetName')]",
-            "vnetPrefix" : "[variables('vnetAddressSpace')]"
+            "vnetName" : {
+              "value": "[parameters('vnetName')]" 
+            },
+            "vnetPrefix" : { 
+              "value": "[variables('vnetAddressSpace')]" 
+            }
           }
         }
       },
