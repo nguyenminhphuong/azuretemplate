@@ -50,10 +50,6 @@
         }
       },
       {
-        "copy" : {
-          "count" : "[length(variables('subnetName'))]",
-          "name": "subnetloop"
-        },
         "name": "subnetTemplate",
         "type": "Microsoft.Resources/deployments",
         "apiVersion": "[variables('deployemntApiVersion')]",
@@ -73,10 +69,15 @@
             "subnetlist" : {
               "value": [
                   {
-                      "name" : "[variables('subnetName')[copyIndex()].name]",
-                      "addressPrefix" : "[variables('subnetName')[copyIndex()].addressPrefix]",
+                      "name" : "[variables('subnetName')[0].name]",
+                      "addressPrefix" : "[variables('subnetName')[0].addressPrefix]",
                       "nsgName" : ""
-                  }
+                  },
+                  {
+                    "name" : "[variables('subnetName')[1].name]",
+                    "addressPrefix" : "[variables('subnetName')[1].addressPrefix]",
+                    "nsgName" : ""
+                }
               ]
             }
           }
