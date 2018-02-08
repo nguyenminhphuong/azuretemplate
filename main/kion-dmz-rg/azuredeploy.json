@@ -18,10 +18,13 @@
     "subnetTemplateFileName" : "subnet.json",
     "subnetTemplateParametersFileName": "subnet.parameters.json",
     "windowsVMTemplateFileName" : "windowsvm.json",
+    "linuxVMTemplateFileName" : "linuxvm.json",
     "webappVMTemplateParametersFileName": "webappvm.parameters.json",
 
-    "webappCustomScriptFileName" : "webappcustomscript.ps1",
+    "configIISScriptFileName" : "configIIS.ps1",
+    "configSquidScriptFileName" : "configsquid.h",
     "webappPrefixName" : "kion-webapp",
+    "proxyVMName" : "kion-dmz-proxy",
     "vmUsername" : "phuong",
     "vmPassword" : "P@ssw0rd@123",
 
@@ -118,6 +121,38 @@
       }
     },
     {
+      "name": "outboundVMTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "[variables('deployemntApiVersion')]",
+      "dependsOn": [
+        "dmzSubnetTemplate"
+      ],
+      "properties": {
+        "mode" :"Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('linuxVMTemplateFileName'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters" :{
+          "vmPrefixName" : {
+            "value": "[variables('proxyVMName')]"
+          },
+          "numberOfInstances" : {
+              "value": 1
+          },
+          "subnetRef" : {
+              "value": "[concat(reference('dmzVnetTemplate').outputs.resourceId.value, '/subnets/', 'dmz-genericoutbound-subnet')]"
+          },
+          "vmAdmin" : {
+              "value": "[variables('vmUsername')]"
+          },
+          "vmPassword" : {
+              "value": "[variables('vmPassword')]"
+          }
+        }
+      }
+    },
+    {
       "copy": {
         "count" : 2,
         "name": "webappcustomscriptloop"
@@ -136,9 +171,30 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(parameters('_artifactsLocation'), '/', variables('customScriptFolder'), '/', variables('webappCustomScriptFileName'))]"
+            "[concat(parameters('_artifactsLocation'), '/', variables('customScriptFolder'), '/', variables('configIISScriptFileName'))]"
           ],
-          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('webappCustomScriptFileName'))]"
+          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('configIISScriptFileName'))]"
+        }
+      }
+    },
+    {
+      "name": "[concat(variables('proxyVMName'), '/','webappcustomscript')]",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('customScriptApiVersion')]",
+      "dependsOn": [ 
+        "webappVMTemplate"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.7",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "[concat(parameters('_artifactsLocation'), '/', variables('customScriptFolder'), '/', variables('configSquidScriptFileName'))]"
+          ],
+          "commandToExecute": "[concat('./', variables('configSquidScriptFileName'))]"
         }
       }
     }

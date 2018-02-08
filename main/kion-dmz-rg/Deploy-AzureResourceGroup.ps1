@@ -15,5 +15,7 @@ Test-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroup -TemplateF
 # deploy the resource template
 New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroup -TemplateFile $templateFile -TemplateParameterFile $templateParameterFile 
 
-$vm = Get-AzureRmVM -Name kion-jump -ResourceGroupName KionDMZ-RG 
-New-Item -Path "C:\" -Name nic.txt -Value $vm.NetworkProfile
+$vnet = Get-AzureRmVirtualNetwork -Name "kion-dmz-vnet" -ResourceGroupName KionDMZ-RG
+Get-AzureRmVirtualNetworkSubnetConfig -VirtualNetwork $vnet
+
+Get-AzureRmPublicIpAddress -Name kion-jump-ip -ResourceGroupName KionDMZ-RG
