@@ -65,7 +65,7 @@
             }
         },
         {
-            "name": "[concat(parameters('vmPrefixName'), add(copyIndex(), 1))]",
+            "name": "[if(equals(parameters('numberOfInstances'), 1), parameters('vmPrefixName'), concat(parameters('vmPrefixName'), add(copyIndex(), 1)) )]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2017-12-01",
             "location" : "[resourceGroup().location]",
@@ -91,7 +91,7 @@
                   }
                 },
                 "osProfile" :{
-                    "computerName": "[concat(parameters('vmPrefixName'), add(copyIndex(), 1))]",
+                    "computerName": "[if(equals(parameters('numberOfInstances'), 1), parameters('vmPrefixName'), concat(parameters('vmPrefixName'), add(copyIndex(), 1)) )]",
                     "adminUsername": "[parameters('vmAdmin')]",
                     "adminPassword": "[parameters('vmPassword')]"
                 },
