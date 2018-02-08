@@ -1,0 +1,91 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "_artifactsLocation": {
+      "type": "string"
+    },
+    "vnetName" : {
+        "type": "string"
+    }
+  },
+  "variables": {
+    "sharedresourcesTemplateFolder": "shareresources",
+
+    "vnetTemplateFileName": "virtualnetwork.json",
+    "subnetTemplateFileName" : "subnet.json",
+    "subnetName" : "public-subnet",
+    "vnetAddressSpace" : ["10.7.0.0/16", "10.8.0.0/16"],
+    "subnetAddressPrefix" : ["10.7.0.0/24", "10.8.0.0/24"],
+      
+    "deployemntApiVersion" : "2016-09-01"
+  },
+  "resources": [
+    {
+      "copy": {
+        "count" : 2,
+        "mode": "Serial",
+        "name": "vnetloop"
+      },
+      "name": "vnetTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "[variables('deployemntApiVersion')]",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('vnetTemplateFileName') )]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters":{
+          "vnetName" :"[concat(parameters('vnetName'), add(copyIndex(), 1))]",
+          "vnetPrefix" : "[variables('vnetAddressSpace')[copyIndex()]]"
+        }
+      }
+    },
+    {
+      "copy": {
+        "count" : 2,
+        "mode": "Serial",
+        "name": "subnetloop"
+      },
+      "name": "subnetTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "[variables('deployemntApiVersion')]",
+      "dependsOn": [
+        "vnetTemplate"
+      ],
+      "properties": {
+        "mode" :"Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('sharedresourcesTemplateFolder'), '/', variables('subnetTemplateFileName'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters" :{
+          "vnetName" : {
+            "value": "[concat(parameters('vnetName'), add(copyIndex(), 1))]"
+          },
+          "subnetlist" : {
+            "value": [
+                {
+                    "name" : "[variables('subnetName')]",
+                    "addressPrefix" : "[variables('subnetAddressPrefix')[copyIndex()]]",
+                    "nsgName" : ""
+                }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "vnetName" : {
+      "type": "string",
+      "value": "[parameters('vnetName')]"
+    },
+    "subnetName" : {
+      "type": "string",
+      "value": "[variables('subnetName')]"
+    }
+  }
+}
